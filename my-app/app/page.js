@@ -37,6 +37,12 @@ export default function Home() {
       setItems(itemsArr)
 
       //Read total from items array
+      const calculateTotal = () => {
+        const totalPrice = itemsArr.reduce((sum,item) => sum + parseFloat(item.price), 0)
+        setTotal(totalPrice)
+      }
+      calculateTotal();
+      return () => unsubscribe();
     });
   },[])
 
