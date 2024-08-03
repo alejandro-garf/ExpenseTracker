@@ -4,7 +4,6 @@ import React,{ useState, useEffect } from 'react';
 export default function Home() {
   const [items, setItems] = useState([
       {name: 'Coffee', price: 4.96},
-      {name: 'Pastry', price: 2.99},
       {name: 'Donut', price: 1.99},
       {name: 'tea', price: 2.85},
   ]);
@@ -33,18 +32,18 @@ export default function Home() {
               >
                 +
             </button>
+            </form>
             <ul>
               {items.map((item, id) => (
-                <li>
-                  <div>
-                    <span>(item.name)</span>
-                    <span>$(item.price)</span>
+                <li key={id} className='my-4 w-full flex justify-between'>
+                  <div className='p-4 w-full flex justify-between'>
+                    <span>{item.name}</span>
+                    <span>${item.price}</span>
                   </div>
-                  <button>x</button>
+                  <button>X</button>
                 </li>
               ))}
             </ul>
-          </form>
         </div>
       </div>
     </main>
