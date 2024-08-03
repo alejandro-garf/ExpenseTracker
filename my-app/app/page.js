@@ -2,12 +2,13 @@
 import React,{ useState, useEffect } from 'react';
 
 export default function Home() {
-  const [items, setItems] = useStates([
+  const [items, setItems] = useState([
       {name: 'Coffee', price: 4.96},
       {name: 'Pastry', price: 2.99},
       {name: 'Donut', price: 1.99},
-      {name: 'Tea', price: 2.85},
-  ])
+      {name: 'tea', price: 2.85},
+  ]);
+  const [total, setTotal] = useState(0)
 
 
   return (
@@ -32,6 +33,17 @@ export default function Home() {
               >
                 +
             </button>
+            <ul>
+              {items.map((item, id) => (
+                <li>
+                  <div>
+                    <span>(item.name)</span>
+                    <span>$(item.price)</span>
+                  </div>
+                  <button>x</button>
+                </li>
+              ))}
+            </ul>
           </form>
         </div>
       </div>
