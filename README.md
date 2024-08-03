@@ -31,7 +31,23 @@ This is a simple Expense Tracker application built with Next.js and Firebase. It
    cd expense-tracker
 
 2. **Install Dependencies**
-   '''
+   ```
    npm install
-   '''
+   ```
+3. **Set Up Firebase:**
+   - Replace the Firebase configuration in firebase.js with your own Firebase project configuration.
+   - Run the Development Server:
+   ```
+   npm run dev
+   ```
+   - Open http://localhost:3000 with your browser to see the result.
+## Usage
+
+- Enter an item name and price in the input fields and click the “+” button to add the item to the list.
+- Click the “X” button next to an item to delete it from the list.
+- The total of all expenses will be displayed at the bottom of the list
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
    
