@@ -35,15 +35,21 @@ export default function Home() {
             </form>
             <ul>
               {items.map((item, id) => (
-                <li key={id} className='my-4 w-full flex justify-between'>
+                <li key={id} className='my-4 w-full flex justify-between bg-slate-950'>
                   <div className='p-4 w-full flex justify-between'>
-                    <span>{item.name}</span>
+                    <span className='capitalize'>{item.name}</span>
                     <span>${item.price}</span>
                   </div>
-                  <button>X</button>
+                  <button className='ml-8 p-4 border-l-2 border-slate-900 hover:bg-slate-900 w-16'>X</button>
                 </li>
               ))}
             </ul>
+            {items.length < 1 ? ('') : (
+              <div className='flex justify-between p-3x'>
+                <span>Total</span>
+                <span>${total}</span>
+              </div>
+            )}
         </div>
       </div>
     </main>
