@@ -1,13 +1,46 @@
 'use client'
 import React,{ useState, useEffect } from 'react';
+import { collection, addDoc, getDoc, querySnapshot, query, onSnapshot } from "firebase/firestore";
+import {db} from './firebase'
 
 export default function Home() {
   const [items, setItems] = useState([
-      {name: 'Coffee', price: 4.96},
-      {name: 'Donut', price: 1.99},
-      {name: 'tea', price: 2.85},
+      // {name: 'Coffee', price: 4.96},
+      // {name: 'Donut', price: 1.99},
+      // {name: 'tea', price: 2.85},
   ]);
+  const[newItem, setNewItem] = useState({name: '', price: ''})
   const [total, setTotal] = useState(0)
+
+  // add items to database
+  const addItem = async (e) => {
+    e.preventDefault();
+    if (newItem.name !== '' && newItem.price !== ''){
+     // setItems([...items, newItem])
+     await addDoc(collection(db, 'items'), {
+        name: newItem.name.trim(),
+        price: newItem.price
+     });
+     setNewItem({name: '', price: '' })
+    }
+  };
+
+  // Read items from database
+  useEffect(() => {
+    const q = query(collection(db, 'items'))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let itemsArr = []
+
+      querySnapshot.forEach((doc) => {
+        itemsArr.push({...doc.data(), id: doc.id})
+      });
+      setItems(itemsArr)
+
+      //Read total from items array
+    });
+  },[])
+
+  // Delete items from database
 
 
   return (
@@ -17,16 +50,21 @@ export default function Home() {
         <div className='bg-slate-800 p-4 rounded-lg'>
           <form className='grid grid-cols-6 items-center text-black'>
             <input 
+              value={newItem.name}
+              onChange={(e) => setNewItem({...newItem, name: e.target.value })}
               className='col-span-3 p-3 border' 
               type="text" 
               placeholder='Enter Item'
             />
-            <input 
+            <input
+              value={newItem.price}
+              onChange={(e) => setNewItem({...newItem, price: e.target.value })}
               className='col-span-2 p-3 border mx-3' 
               type="text" 
               placeholder='Enter $'
             />
-            <button 
+            <button
+              onClick={addItem}
               className='text-white bg-slate-950 hover:bg-slate-900 p-3 text-xl' 
               type="submit"
               >
